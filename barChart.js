@@ -17,13 +17,13 @@ let testData = [
     }
 ]
 
-let ordinalChart = d3.select("#container2");
+let ordinalChart = d3.select("#body");
 
 let maxValue = d3.max(testData, d => d.Height)
 
 let widthScale = d3.scaleLinear()
     .domain([0, maxValue])
-    .range([0, 300])
+    .range([0, 198])
 
     let positionScale = d3.scaleBand()
     .range([0, 200])
@@ -40,3 +40,15 @@ join.enter()
     .attr("width", d => d.Height + "px")
     .attr("height", positionScale.bandwidth())
     .attr("y", d => positionScale(d.Name))
+
+let xAxis = d3.axisBottom(widthScale)
+.ticks(6)
+.tickFormat(d => d + "cm")
+d3.select("#xAxis")
+    .attr("transform", "translate(50, 200)")
+    .call(xAxis)
+
+let yAxis = d3.axisLeft(positionScale)
+d3.select("#yAxis")
+    .attr("transform", "translate(50, 0)")
+    .call(yAxis)
